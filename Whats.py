@@ -13,8 +13,9 @@ nome_contato = 'Dojo-Bot-Whats'
 grupo = (By.XPATH,f"//*[@title='{nome_contato}']")
 envia_mensagem = (By.CLASS_NAME,'_3uMse')
 envia_botao = (By.XPATH,f"//*[@data-icon='send']")
-ler_mensagem = (By.XPATH, 'div[contains(@class, "message-in focusable-list-item")]')
+ler_mensagem = (By.XPATH, '//div[contains(@class, "message-in focusable-list-item")]')
 driver.get(uri)
+
 
 def grupos():
     sleep(10)
@@ -22,12 +23,13 @@ def grupos():
         box.find_element(*grupo).click()
         # sleep(10)
 
+
 def Ler_mensagem():
     conv = list()
     for msg in driver.find_elements(*ler_mensagem):
         conv.append(msg.text.split('\n'))
-    # conv[-1].pop()
-    print(conv)
+    conv[-1].pop()
+    print(conv[-1][1])
 
 
 def envia_msg(mensagem = None):
@@ -35,9 +37,9 @@ def envia_msg(mensagem = None):
         box = driver.find_element(*envia_mensagem)
         box.click()
         box.send_keys(mensagem+'\n')
-        print(mensagem)
     else:
         pass
+
 
 def conversa():
     conversas = set()
